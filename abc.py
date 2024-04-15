@@ -34,17 +34,16 @@ def checker(v):
    count = count+1
    if v != "" and v.lower().find(i.lower()) != -1:
     print(v.lower(),i.lower())
-    pyautogui.press('/')
+    #pyautogui.press('/')
     pyautogui.typewrite(sometexts[count])
     keyboard.press(Key.enter)
+    sleep(.11)
+    pyautogui.click(50, 100)
 
 while True:
- sleep(1)
- pyautogui.click(50, 100)
  snapshot = ImageGrab.grab()
- snapshot.save("1.png")
- img = Image.open("1.png")
- text = pytesseract.image_to_string(img)
+ text = pytesseract.image_to_string(snapshot)
  for v in text[:-1].split("\n"):
-  processThread = threading.Thread(target=checker, args=[v])  # <- 1 element list
-  processThread.start()
+  checker(v)
+  #processThread = threading.Thread(target=checker, args=[v])  # <- 1 element list
+  #processThread.start()
